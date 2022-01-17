@@ -6,14 +6,12 @@ function PrivateRoute({ children }) {
   const isMyTokenExpired = isExpired(localStorage.getItem("token"));
 
   useEffect(() => {
-    if (isMyTokenExpired === false) {
-      navigate("/");
+    if (isMyTokenExpired === true) {
+      navigate("/login");
     }
-  }, []); // on render will check if token is expired
+  }); // will check if token is expired
 
-  if (isMyTokenExpired === true) {
-    return children;
-  }
+  return children;
 }
 
 export default PrivateRoute;
