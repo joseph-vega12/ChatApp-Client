@@ -27,7 +27,7 @@ function Login() {
   };
 
   return (
-    <>
+    <div>
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -47,7 +47,7 @@ function Login() {
         />
         <button>Login</button>
       </form>
-    </>
+    </div>
   );
 }
 
