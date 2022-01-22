@@ -34,7 +34,7 @@ function Login() {
           name="username"
           placeholder="Enter Username"
           label="username"
-          onChange={onChange}
+          onChange={(e) => onChange(e)}
           value={input.username}
         />
         <input
@@ -42,7 +42,7 @@ function Login() {
           name="password"
           placeholder="Enter Password"
           label="password"
-          onChange={onChange}
+          onChange={(e) => onChange(e)}
           value={input.password}
         />
         <button>Login</button>

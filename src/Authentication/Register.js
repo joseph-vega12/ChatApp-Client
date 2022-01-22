@@ -39,7 +39,7 @@ function Register() {
           name="email"
           placeholder="Email"
           label="email"
-          onChange={onChange}
+          onChange={(e) => onChange(e)}
           value={input.email}
         />
         <input
@@ -47,7 +47,7 @@ function Register() {
           name="username"
           placeholder="Username"
           label="username"
-          onChange={onChange}
+          onChange={(e) => onChange(e)}
           value={input.username}
         />
         <input
@@ -55,7 +55,7 @@ function Register() {
           name="password"
           placeholder="Password"
           label="password"
-          onChange={onChange}
+          onChange={(e) => onChange(e)}
           value={input.password}
         />
         <button>Register</button>

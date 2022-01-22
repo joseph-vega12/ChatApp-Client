@@ -1,62 +1,45 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+import Messages from "../Components/Messages";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:4000");
-
 function Chat() {
-  const [state, setState] = useState({ message: "", name: "" });
-  const [chat, setChat] = useState([
-    { name: "Joseph", message: "Hello Coco" },
-    { name: "Coco", message: "Hello Joseph" },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
   useEffect(() => {
-    socket.on("send-message", ({ name, message }) => {
-      setChat([...chat, { name, message }]);
-    });
-  }, [chat]);
+      axios
+        .get("http://localhost:4000/chat/rooms", {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          setRooms(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, []);
 
-  const onTextChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+  const selectRoom = (roomId) => {
+    setSelectedRoom(roomId);
   };
 
-  const onMessageSubmit = (e) => {
-    const { name, message } = state;
-    socket.emit("send-message", { name, message });
-    e.preventDefault();
-    setState({ message: "", name });
-  };
   return (
-    <div className="card">
-      <form onSubmit={onMessageSubmit}>
-        <h1>Messenger</h1>
-        <div className="name-field">
-          <input
-            name="name"
-            onChange={(e) => onTextChange(e)}
-            value={state.name}
-            label="Name"
-          />
-        </div>
-        <div>
-          <input
-            name="message"
-            onChange={(e) => onTextChange(e)}
-            value={state.message}
-            label="Message"
-          />
-        </div>
-        <button>Send Message</button>
-      </form>
-      <div className="render-chat">
-        <h1>Chat Log</h1>
-        {chat.map(({ name, message }, index) => (
-          <div key={index}>
-            <h3>
-              {name}: <span>{message}</span>
-            </h3>
-          </div>
-        ))}
-      </div>
+    <div className="Container">
+      <h1>Rooms</h1>
+      {rooms.map((room) => (
+        <h3
+          key={room.id}
+          onClick={() => {
+            selectRoom(room.id);
+          }}
+        >
+          {room.roomname}
+        </h3>
+      ))}
+      <Messages selectedRoom={selectedRoom} />
     </div>
   );
 }
