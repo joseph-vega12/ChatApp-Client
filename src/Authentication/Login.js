@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const [input, setInput] = useState({ username: "", password: "" });
@@ -47,6 +47,7 @@ function Login() {
         />
         <button>Login</button>
       </form>
+      <Link to="/register">Register</Link>
     </div>
   );
 }
