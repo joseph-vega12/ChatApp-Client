@@ -3,10 +3,11 @@ import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
 import Chat from "./Components/Chat";
 import PrivateRoute from "./RestrictedRoute/PrivateRoute";
+import { Context } from "./Context/Context";
 
 function App() {
   return (
-    <>
+    <Context>
       <Routes>
         <Route
           path="/"
@@ -19,7 +20,7 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
-    </>
+    </Context>
   );
 }
 

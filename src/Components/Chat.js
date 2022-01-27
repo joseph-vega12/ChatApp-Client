@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Nav from "../Common/NavigationBar";
 import Messages from "../Components/Messages";
@@ -13,11 +13,13 @@ import {
   Button,
 } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
+import { UserContext } from "../Context/Context";
+import { decodeToken } from "react-jwt";
 
 function Chat() {
+  const { user, setUser } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(1);
-
   useEffect(() => {
     axios
       .get("http://localhost:4000/chat/rooms", {
@@ -27,6 +29,7 @@ function Chat() {
       })
       .then((response) => {
         setRooms(response.data);
+        setUser(decodeToken(localStorage.getItem("token")));
       })
       .catch((error) => {
         console.log(error);
@@ -36,7 +39,6 @@ function Chat() {
   const selectRoom = (roomId) => {
     setSelectedRoom(roomId);
   };
-
   return (
     <>
       <Container fluid>

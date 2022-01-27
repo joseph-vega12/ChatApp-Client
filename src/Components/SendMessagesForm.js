@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../Context/Context";
 
 function SendMessagesForm({ selectedRoom }) {
+  const { user } = useContext(UserContext);
   const [messageInput, setMessageInput] = useState({
-    sentBy: "audrey", //Will be gotten from global state depending on what user is logged in, in this case Audrey
     message: "",
   });
   const onChange = (e) => {
@@ -17,7 +18,7 @@ function SendMessagesForm({ selectedRoom }) {
         "http://localhost:4000/chat/messages",
         {
           roomId: selectedRoom,
-          sentBy: messageInput.sentBy,
+          sentBy: user.username,
           message: messageInput.message,
         },
         {
@@ -28,7 +29,6 @@ function SendMessagesForm({ selectedRoom }) {
       )
       .then((response) => {
         setMessageInput({ ...messageInput, message: "" });
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

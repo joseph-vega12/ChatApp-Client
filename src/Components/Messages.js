@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SendMessagesForm from "./SendMessagesForm";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Messages({ selectedRoom }) {
   const [messages, setMessages] = useState([]);
@@ -27,15 +28,22 @@ function Messages({ selectedRoom }) {
       <h1>Select A Room</h1>
     </div>
   ) : (
-    <div className="Container">
+    <Container fluid>
       <div className="Messages">
-        <h1>Messages</h1>
-        {messages.map((message) => (
-          <h2 key={message.id}>{message.message}</h2>
-        ))}
+        <Row>
+          {messages.map((message) => (
+            <Col
+              key={message.id}
+              lg="12"
+              className="d-flex justify-content-end"
+            >
+              <h4>{message.message}</h4>
+            </Col>
+          ))}
+        </Row>
       </div>
       <SendMessagesForm selectedRoom={selectedRoom} />
-    </div>
+    </Container>
   );
 }
 export default Messages;
