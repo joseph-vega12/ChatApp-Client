@@ -48,7 +48,11 @@ function Messages({ selectedRoom }) {
           ))}
         </Row>
       </div>
-      <SendMessagesForm selectedRoom={selectedRoom} messages={messages} setMessages={setMessages} />
+      <SendMessagesForm
+        selectedRoom={selectedRoom}
+        messages={messages}
+        setMessages={setMessages}
+      />
     </Container>
   );
 }
