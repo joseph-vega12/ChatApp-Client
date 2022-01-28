@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import SendMessagesForm from "./SendMessagesForm";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Badge, Button } from "react-bootstrap";
+import * as Icon from "react-bootstrap-icons";
 import { UserContext } from "../Context/Context";
 
 function Messages({ selectedRoom }) {
@@ -30,7 +31,7 @@ function Messages({ selectedRoom }) {
       <h1>Select A Room</h1>
     </div>
   ) : (
-    <Container fluid>
+    <Container fluid className="pt-3">
       <div className="Messages">
         <Row>
           {messages.map((message) => (
@@ -39,11 +40,20 @@ function Messages({ selectedRoom }) {
               lg="12"
               className={
                 user.username === message.sentby
-                  ? "d-flex justify-content-end"
-                  : "d-flex justify-content-start"
+                  ? "d-flex flex-row-reverse pt-3"
+                  : "d-flex justify-content-start pt-3"
               }
             >
-              <h4>{message.message}</h4>
+              <Icon.PersonCircle className="me-3 ms-3" size={33} />
+              <Button
+                variant={
+                  user.username === message.sentby
+                    ? "primary mw-25"
+                    : "secondary mw-25"
+                }
+              >
+                {message.message}
+              </Button>
             </Col>
           ))}
         </Row>
