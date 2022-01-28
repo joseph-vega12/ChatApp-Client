@@ -17,7 +17,7 @@ import { UserContext } from "../Context/Context";
 import { decodeToken } from "react-jwt";
 
 function Chat() {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(1);
   useEffect(() => {

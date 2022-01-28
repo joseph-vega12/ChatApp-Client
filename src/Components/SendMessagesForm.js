@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Context/Context";
 
-function SendMessagesForm({ selectedRoom }) {
+function SendMessagesForm({ selectedRoom, messages, setMessages }) {
   const { user } = useContext(UserContext);
   const [messageInput, setMessageInput] = useState({
     message: "",
@@ -28,6 +28,7 @@ function SendMessagesForm({ selectedRoom }) {
         }
       )
       .then((response) => {
+        setMessages([...messages, response.data]);
         setMessageInput({ ...messageInput, message: "" });
       })
       .catch((error) => {

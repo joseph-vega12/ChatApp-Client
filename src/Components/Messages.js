@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import SendMessagesForm from "./SendMessagesForm";
 import { Container, Row, Col } from "react-bootstrap";
+import { UserContext } from "../Context/Context";
 
 function Messages({ selectedRoom }) {
+  const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   // const socket = io("http://localhost:4000");
   // socket.on("send-message", ({ name, message }) => {
@@ -35,14 +37,18 @@ function Messages({ selectedRoom }) {
             <Col
               key={message.id}
               lg="12"
-              className="d-flex justify-content-end"
+              className={
+                user.username === message.sentby
+                  ? "d-flex justify-content-end"
+                  : "d-flex justify-content-start"
+              }
             >
               <h4>{message.message}</h4>
             </Col>
           ))}
         </Row>
       </div>
-      <SendMessagesForm selectedRoom={selectedRoom} />
+      <SendMessagesForm selectedRoom={selectedRoom} messages={messages} setMessages={setMessages} />
     </Container>
   );
 }
