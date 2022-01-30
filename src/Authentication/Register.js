@@ -27,7 +27,7 @@ function Register() {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
   };
 

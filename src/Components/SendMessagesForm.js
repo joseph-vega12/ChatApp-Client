@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Context/Context";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 function SendMessagesForm({ selectedRoom, messages, setMessages }) {
   const { user } = useContext(UserContext);
@@ -32,29 +33,33 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
         setMessageInput({ ...messageInput, message: "" });
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
   };
 
   return (
-    <div className="SendMessageForm">
-      <form
-        onSubmit={(e) => {
-          onSubmit(e);
-        }}
-      >
-        <input
-          type="text"
-          name="message"
-          placeholder="message"
-          label="message"
-          value={messageInput.message}
-          onChange={(e) => {
-            onChange(e);
+    <div className="fixed-bottom d-flex justify-content-end">
+      <Form.Group className="w-75">
+        <Form
+          onSubmit={(e) => {
+            onSubmit(e);
           }}
-        />
-        <button>Send</button>
-      </form>
+        >
+          <InputGroup size="lg" className="mb-3">
+            <FormControl
+              type="text"
+              name="message"
+              placeholder="Message"
+              label="message"
+              value={messageInput.message}
+              onChange={(e) => {
+                onChange(e);
+              }}
+            />
+            <Button variant="secondary">Send</Button>
+          </InputGroup>
+        </Form>
+      </Form.Group>
     </div>
   );
 }

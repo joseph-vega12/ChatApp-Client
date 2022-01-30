@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
+
 function NavigationBar() {
   const navigate = useNavigate();
 
