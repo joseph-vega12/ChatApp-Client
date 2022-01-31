@@ -31,8 +31,12 @@ function Chat() {
   }, []);
   const selectRoom = (roomId) => {
     setSelectedRoom(roomId);
-    setRoomInfo(rooms[roomId]);
+    const roomName = rooms.filter(room => room.id === roomId).map(filteredName => {
+       return filteredName;
+    });
+    setRoomInfo(roomName[0 ]);
   };
+  
   return (
     <Container fluid>
       <Row>

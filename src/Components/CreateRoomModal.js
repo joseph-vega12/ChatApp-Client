@@ -6,9 +6,9 @@ function CreateRoomModal(props) {
   const [previewImage, setPreviewImage] = useState(null);
   const [formInput, setFormInput] = useState({ file: "", roomName: "" });
 
-  useEffect(() => {
-    console.log(previewImage);
-  }, [previewImage]);
+  // useEffect(() => {
+  //   console.log(previewImage);
+  // }, [previewImage]);
 
   const onChange = (e) => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]));

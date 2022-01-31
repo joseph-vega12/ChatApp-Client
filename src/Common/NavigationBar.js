@@ -11,7 +11,7 @@ function NavigationBar({roomInfo}) {
 
   return (
     <Navbar className="p-4" collapseOnSelect bg="light" variant="light">
-      <Navbar.Brand className={`${roomInfo !== "" ? "d-flex" : "d-none"}`} href="#">
+      <Navbar.Brand className={`${roomInfo !== "" ? "d-block" : "d-none"}`} href="#">
         <Icon.PersonCircle className="me-3" size={35} />
         {roomInfo.roomname}
       </Navbar.Brand>
