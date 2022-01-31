@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
-function NavigationBar() {
+function NavigationBar({roomInfo}) {
   const navigate = useNavigate();
-
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -12,7 +11,10 @@ function NavigationBar() {
 
   return (
     <Navbar className="p-4" collapseOnSelect bg="light" variant="light">
-      <Navbar.Brand href="#">ChatApp</Navbar.Brand>
+      <Navbar.Brand className={`${roomInfo !== "" ? "d-flex" : "d-none"}`} href="#">
+        <Icon.PersonCircle className="me-3" size={35} />
+        {roomInfo.roomname}
+      </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Nav>

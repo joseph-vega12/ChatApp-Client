@@ -38,14 +38,14 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
   };
 
   return (
-    <div className="fixed-bottom d-flex justify-content-end">
+    <div className="navbar fixed-bottom d-flex justify-content-end pb-2">
       <Form.Group className="w-75">
         <Form
           onSubmit={(e) => {
             onSubmit(e);
           }}
         >
-          <InputGroup size="lg" className="mb-3">
+          <InputGroup size="lg" className="">
             <FormControl
               type="text"
               name="message"

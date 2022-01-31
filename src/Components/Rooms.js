@@ -1,8 +1,11 @@
+import { useState } from "react";
+import CreateRoomModal from "./CreateRoomModal";
 import { Col, InputGroup, Button, FormControl, Card } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./Rooms.css";
 
 function Rooms({ rooms, selectRoom }) {
+  const [modalShow, setModalShow] = useState(false);
   const setButtonRoomActive = (roomId) => {
     rooms.map((room) => {
       return roomId === room.id ? (room.active = true) : (room.active = false);
@@ -13,7 +16,16 @@ function Rooms({ rooms, selectRoom }) {
     <Col className="RoomsColumn" sm={6} md={5} lg={4} xl={3} xxl={3}>
       <Col className="d-flex justify-content-between m-4">
         <h3 className="m-0">Rooms</h3>
-        <h6 className="m-0 p-2">+ Create new room</h6>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline-secondary"
+          onClick={() => {
+            setModalShow(true);
+          }}
+        >
+          + Create new room
+        </Button>
       </Col>
       <InputGroup className="pb-4 ms-auto me-auto w-100">
         <Button variant="outline-secondary" id="button-addon1">
@@ -48,6 +60,7 @@ function Rooms({ rooms, selectRoom }) {
           </Button>
         </Card>
       ))}
+      <CreateRoomModal show={modalShow} onHide={() => setModalShow(false)} />
     </Col>
   );
 }

@@ -12,6 +12,8 @@ function Chat() {
   const { setUser } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const [roomInfo, setRoomInfo] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/chat/rooms", {
@@ -27,20 +29,20 @@ function Chat() {
         throw error;
       });
   }, []);
-
   const selectRoom = (roomId) => {
     setSelectedRoom(roomId);
+    setRoomInfo(rooms[roomId]);
   };
   return (
-      <Container fluid>
-        <Row>
-          <Rooms rooms={rooms} selectRoom={selectRoom} />
-          <Col lg={9} className="p-0 border-start">
-            <Nav />
-            <Messages selectedRoom={selectedRoom} />
-          </Col>
-        </Row>
-      </Container>
+    <Container fluid>
+      <Row>
+        <Rooms rooms={rooms} selectRoom={selectRoom} />
+        <Col lg={9} className="p-0 border-start">
+          <Nav roomInfo={roomInfo} />
+          <Messages selectedRoom={selectedRoom} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
