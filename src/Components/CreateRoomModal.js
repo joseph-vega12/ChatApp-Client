@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
 function CreateRoomModal(props) {
   const [previewImage, setPreviewImage] = useState(null);
   const [formInput, setFormInput] = useState({ file: "", roomName: "" });
-
-  // useEffect(() => {
-  //   console.log(previewImage);
-  // }, [previewImage]);
 
   const onChange = (e) => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
