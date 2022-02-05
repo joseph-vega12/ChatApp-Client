@@ -1,10 +1,17 @@
 import { useState } from "react";
 import CreateRoomModal from "./CreateRoomModal";
-import { Col, InputGroup, Button, FormControl, Card } from "react-bootstrap";
+import {
+  Col,
+  InputGroup,
+  Button,
+  FormControl,
+  Card,
+  Image,
+} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./Rooms.css";
 
-function Rooms({ rooms, selectRoom }) {
+function Rooms({ rooms, setroom, selectRoom }) {
   const [modalShow, setModalShow] = useState(false);
   const setButtonRoomActive = (roomId) => {
     rooms.map((room) => {
@@ -49,18 +56,30 @@ function Rooms({ rooms, selectRoom }) {
             active={room.active === true ? true : false}
           >
             <Card.Body className="d-flex p-4 justify-content-start">
-              <div className="UserPicture">
-                <Icon.PersonCircle className="me-3" size={40} />
+              <div className="roomPicture">
+                <Image
+                  className="w-100"
+                  roundedCircle={true}
+                  thumbnail={true}
+                  src={`http://localhost:4000/${room.roomimage}`}
+                  alt="roomPicture"
+                />
+                {/* <Icon.PersonCircle className="me-3" size={40} /> */}
               </div>
               <div className="RoomBody">
-                <Card.Title>{room.roomname}</Card.Title>
+                <Card.Title className="pt-1">{room.roomname}</Card.Title>
                 <Card.Subtitle>Hello This is a test Room</Card.Subtitle>
               </div>
             </Card.Body>
           </Button>
         </Card>
       ))}
-      <CreateRoomModal show={modalShow} onHide={() => setModalShow(false)} />
+      <CreateRoomModal
+        show={modalShow}
+        rooms={rooms}
+        setroom={setroom}
+        onHide={() => setModalShow(false)}
+      />
     </Col>
   );
 }

@@ -1,25 +1,64 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
 function CreateRoomModal(props) {
+ 
   const [previewImage, setPreviewImage] = useState(null);
-  const [formInput, setFormInput] = useState({ file: "", roomName: "" });
+  const [formInput, setFormInput] = useState({ roomName: "" });
+  const [file, setFile] = useState("");
 
   const onChange = (e) => {
-    setPreviewImage(URL.createObjectURL(e.target.files[0]));
     setFormInput({ ...formInput, [e.target.name]: e.target.value });
+    setFile(e.target.files[0]);
+  };
+
+  const changePicture = (e) => {
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("roomName", e.target.roomName.value);
+    formData.append("avatar", file);
+
+    axios
+      .post("http://localhost:4000/chat/rooms", formData, {
+        headers: {
+          token: localStorage.getItem("token"),
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        props.setroom([...props.rooms, response.data]);
+      })
+      .catch((error) => {
+        throw error;
+      });
   };
 
   return (
-    <Modal {...props} size="lg" aria-labelledby="create-room-popup" centered>
+    <Modal
+      show={props.show}
+      onHide={props.onHide}
+      size="lg"
+      aria-labelledby="create-room-popup"
+      centered
+    >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Create New Room
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form className="w-50 ms-auto me-auto mt-5 mb-5">
+        <Form
+          className="w-50 ms-auto me-auto mt-5 mb-5"
+          onSubmit={(e) => {
+            onSubmit(e);
+          }}
+        >
           <Form.Group className="mb-3 mb-5 text-center">
             {previewImage === null ? (
               <Icon.Image size={100} />
@@ -37,9 +76,10 @@ function CreateRoomModal(props) {
             <Form.Control
               type="file"
               accept="image/*"
-              name="roomPicture"
+              name="avatar"
               onChange={(e) => {
                 onChange(e);
+                changePicture(e);
               }}
             />
           </Form.Group>
@@ -49,12 +89,14 @@ function CreateRoomModal(props) {
               type="text"
               name="roomName"
               placeholder="Enter Room Name"
+              value={formInput.roomName}
               onChange={(e) => {
                 onChange(e);
               }}
             />
           </Form.Group>
           <Button
+            onClick={props.onHide}
             className="w-100 text-center mt-3"
             variant="primary"
             type="submit"

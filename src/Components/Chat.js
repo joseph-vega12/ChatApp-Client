@@ -29,18 +29,21 @@ function Chat() {
         throw error;
       });
   }, []);
+  
   const selectRoom = (roomId) => {
     setSelectedRoom(roomId);
-    const roomName = rooms.filter(room => room.id === roomId).map(filteredName => {
-       return filteredName;
-    });
-    setRoomInfo(roomName[0 ]);
+    const roomName = rooms
+      .filter((room) => room.id === roomId)
+      .map((filteredName) => {
+        return filteredName;
+      });
+    setRoomInfo(roomName[0]);
   };
-  
+
   return (
     <Container fluid>
       <Row>
-        <Rooms rooms={rooms} selectRoom={selectRoom} />
+        <Rooms rooms={rooms} setroom={setRooms} selectRoom={selectRoom} />
         <Col lg={9} className="p-0 border-start">
           <Nav roomInfo={roomInfo} />
           <Messages selectedRoom={selectedRoom} />
