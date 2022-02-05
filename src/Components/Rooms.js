@@ -56,11 +56,10 @@ function Rooms({ rooms, setroom, selectRoom }) {
             active={room.active === true ? true : false}
           >
             <Card.Body className="d-flex p-4 justify-content-start">
-              <div className="roomPicture">
+              <div className="roomPicture me-2">
                 <Image
                   className="w-100"
                   roundedCircle={true}
-                  thumbnail={true}
                   src={`http://localhost:4000/${room.roomimage}`}
                   alt="roomPicture"
                 />
