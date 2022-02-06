@@ -28,8 +28,10 @@ function Messages({ selectedRoom }) {
   }, [selectedRoom]);
 
   return selectedRoom === null ? (
-    <div className="SelectRoomMessage">
-      <h1>Select A Room</h1>
+    <div className="SelectRoomMessage  d-flex justify-content-center h-75">
+      <h1 className="d-flex flex-column justify-content-center opacity-50">
+        Select A Room
+      </h1>
     </div>
   ) : (
     <div className="Messages">
