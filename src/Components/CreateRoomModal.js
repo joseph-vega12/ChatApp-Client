@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
@@ -121,9 +121,7 @@ function CreateRoomModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button">
-          Close
-        </Button>
+        <Button type="button">Close</Button>
       </Modal.Footer>
     </Modal>
   );
