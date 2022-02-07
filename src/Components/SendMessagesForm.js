@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Context/Context";
-import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 
 function SendMessagesForm({ selectedRoom, messages, setMessages }) {
   const { user } = useContext(UserContext);
