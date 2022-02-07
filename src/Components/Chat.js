@@ -29,7 +29,7 @@ function Chat() {
         throw error;
       });
   }, []);
-  
+
   const selectRoom = (roomId) => {
     setSelectedRoom(roomId);
     const roomName = rooms

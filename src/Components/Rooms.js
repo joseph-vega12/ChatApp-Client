@@ -51,9 +51,10 @@ function Rooms({ rooms, setroom, selectRoom }) {
           }}
         >
           <Button
-            variant="outline-dark"
+            // className={room.active === true ? "bg-primary bg-gradient" : "bg-light"}
+            // variant="outline-primary"
+            variant={room.active === true ? "primary" : "light"}
             type="null"
-            active={room.active === true ? true : false}
           >
             <Card.Body className="d-flex p-4 justify-content-start">
               <div className="roomPicture me-2">

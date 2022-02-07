@@ -12,6 +12,7 @@ function Register() {
     username: "",
     password: "",
   });
+  const [validated, setValidated] = useState(false);
 
   const onChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -19,19 +20,23 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:4000/auth/register", {
-        email: e.target.email.value,
-        username: e.target.username.value,
-        password: e.target.password.value,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        navigate("/");
-      })
-      .catch((error) => {
-        throw error;
-      });
+    const registerForm = e.currentTarget;
+    if (registerForm.checkValidity() === true) {
+      axios
+        .post("http://localhost:4000/auth/register", {
+          email: e.target.email.value,
+          username: e.target.username.value,
+          password: e.target.password.value,
+        })
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
+          navigate("/");
+        })
+        .catch((error) => {
+          throw error;
+        });
+    }
+    setValidated(true);
   };
 
   return (
@@ -47,39 +52,56 @@ function Register() {
               globe.
             </p>
           </Col>
-          <Form className="w-75 me-auto ms-auto" onSubmit={onSubmit}>
+          <Form
+            className="w-75 me-auto ms-auto"
+            noValidate
+            validated={validated}
+            onSubmit={onSubmit}
+          >
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
+                required
                 name="username"
                 placeholder="Enter Username"
                 label="username"
                 onChange={(e) => onChange(e)}
                 value={input.username}
               />
+              <Form.Control.Feedback type="invalid">
+                Username required.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Your Email</Form.Label>
               <Form.Control
                 type="email"
+                required
                 name="email"
                 placeholder="johnapple@appleseed.com"
                 label="email"
                 onChange={(e) => onChange(e)}
                 value={input.email}
               />
+              <Form.Control.Feedback type="invalid">
+                Email required.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                required
                 name="password"
                 placeholder="Enter Password"
                 label="password"
                 onChange={(e) => onChange(e)}
                 value={input.password}
               />
+              <Form.Control.Feedback type="invalid">
+                Password required.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3"></Form.Group>
             <Button

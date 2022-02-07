@@ -4,10 +4,10 @@ import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
 function CreateRoomModal(props) {
- 
   const [previewImage, setPreviewImage] = useState(null);
   const [formInput, setFormInput] = useState({ roomName: "" });
   const [file, setFile] = useState("");
+  const [validated, setValidated] = useState(false);
 
   const onChange = (e) => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value });
@@ -21,22 +21,27 @@ function CreateRoomModal(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    const validatedInput = e.currentTarget;
+
     formData.append("roomName", e.target.roomName.value);
     formData.append("avatar", file);
-
-    axios
-      .post("http://localhost:4000/chat/rooms", formData, {
-        headers: {
-          token: localStorage.getItem("token"),
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        props.setroom([...props.rooms, response.data]);
-      })
-      .catch((error) => {
-        throw error;
-      });
+    if (validatedInput.checkValidity() === true) {
+      axios
+        .post("http://localhost:4000/chat/rooms", formData, {
+          headers: {
+            token: localStorage.getItem("token"),
+            "content-type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          props.setroom([...props.rooms, response.data]);
+          props.onHide();
+        })
+        .catch((error) => {
+          throw error;
+        });
+    }
+    setValidated(true);
   };
 
   return (
@@ -55,6 +60,8 @@ function CreateRoomModal(props) {
       <Modal.Body>
         <Form
           className="w-50 ms-auto me-auto mt-5 mb-5"
+          noValidate
+          validated={validated}
           onSubmit={(e) => {
             onSubmit(e);
           }}
@@ -75,6 +82,7 @@ function CreateRoomModal(props) {
             <Form.Label>Room Picture</Form.Label>
             <Form.Control
               type="file"
+              required
               accept="image/*"
               name="avatar"
               onChange={(e) => {
@@ -82,11 +90,15 @@ function CreateRoomModal(props) {
                 changePicture(e);
               }}
             />
+            <Form.Control.Feedback type="invalid">
+              File required.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Room Name</Form.Label>
             <Form.Control
               type="text"
+              required
               name="roomName"
               placeholder="Enter Room Name"
               value={formInput.roomName}
@@ -94,9 +106,12 @@ function CreateRoomModal(props) {
                 onChange(e);
               }}
             />
+            <Form.Control.Feedback type="invalid">
+              Room name required.
+            </Form.Control.Feedback>
           </Form.Group>
           <Button
-            onClick={props.onHide}
+            // onClick={props.onHide}
             className="w-100 text-center mt-3"
             variant="primary"
             type="submit"
@@ -106,7 +121,7 @@ function CreateRoomModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button" onClick={props.onHide}>
+        <Button type="button">
           Close
         </Button>
       </Modal.Footer>
