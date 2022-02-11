@@ -1,12 +1,24 @@
 .RoomsColumn {
-    overflow: scroll;
-    height: 100vh;
+  overflow: scroll;
+  height: 100vh;
 }
 
-.roomPicture {
-    width: 20%;
+.RoomsColumn::-webkit-scrollbar {
+  display: none;
 }
 
-.btn {
-    text-align: left !important;
+.Active {
+  background-color: red;
+}
+
+.Room {
+  border-radius: 10px;
+}
+
+.Room:hover {
+  border-radius: 10px;
+}
+
+.RoomPicture {
+  width: 20%;
 }

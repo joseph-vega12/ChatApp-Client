@@ -44,7 +44,7 @@ function Chat() {
     <Container fluid>
       <Row>
         <Rooms rooms={rooms} setroom={setRooms} selectRoom={selectRoom} />
-        <Col lg={9} className="p-0 border-start">
+        <Col lg={9} className="p-0">
           <Nav roomInfo={roomInfo} />
           <Messages selectedRoom={selectedRoom} />
         </Col>

@@ -1,4 +1,14 @@
 .Messages {
-    overflow: scroll;
-    height: 85vh;
+  overflow: scroll;
+  height: 79vh;
+}
+
+.Messages::-webkit-scrollbar {
+  display: none;
+}
+
+.MessageImage {
+  display: flex;
+  justify-content: space-evenly;
+  width: 6%;
 }

@@ -66,9 +66,6 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
               }}
             />
             <Button variant="secondary">Send</Button>
-            <Form.Control.Feedback type="invalid">
-              Message required.
-            </Form.Control.Feedback>
           </InputGroup>
         </Form>
       </Form.Group>
