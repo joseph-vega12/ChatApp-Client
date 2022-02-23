@@ -111,7 +111,6 @@ function CreateRoomModal(props) {
             </Form.Control.Feedback>
           </Form.Group>
           <Button
-            // onClick={props.onHide}
             className="w-100 text-center mt-3"
             variant="primary"
             type="submit"
@@ -121,7 +120,9 @@ function CreateRoomModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button">Close</Button>
+        <Button onClick={props.onHide} type="button">
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );

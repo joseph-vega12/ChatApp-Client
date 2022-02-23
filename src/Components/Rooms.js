@@ -3,7 +3,6 @@ import CreateRoomModal from "./CreateRoomModal";
 import { Col, InputGroup, Button, FormControl, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./Rooms.css";
-
 function Rooms({ rooms, setroom, selectRoom }) {
   const [modalShow, setModalShow] = useState(false);
   const setButtonRoomActive = (roomId) => {
@@ -13,11 +12,9 @@ function Rooms({ rooms, setroom, selectRoom }) {
   };
 
   return (
-    <Col className="RoomsColumn bg-dark" sm={6} md={5} lg={4} xl={3} xxl={3}>
+    <Col className="RoomsColumn bg-dark" lg={4}>
       <Col className="d-flex justify-content-between m-4">
-        <h3 style={{ color: "white" }} className="m-0">
-          Rooms
-        </h3>
+        <h3 className="m-0">Rooms</h3>
         <Button
           type="button"
           size="sm"
@@ -54,12 +51,9 @@ function Rooms({ rooms, setroom, selectRoom }) {
               alt="roomPicture"
             />
           </div>
-          <div
-            className="RoomBody p-1 ps-3 text-start"
-            style={{ color: "white" }}
-          >
+          <div className="RoomBody p-1 ps-3 text-start">
             <h4>{room.roomname}</h4>
-            <p>text text text text text text text text text</p>
+            <p>{room.latestmessage}</p>
           </div>
         </Button>
       ))}

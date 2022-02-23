@@ -28,10 +28,7 @@ function NavigationBar({ roomInfo }) {
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
-        <Nav>
-          <Nav.Link href="/">
-            <Icon.PersonCircle size={27} />
-          </Nav.Link>
+        <Nav className="d-flex justify-content-end">
           <NavDropdown title={<Icon.ThreeDotsVertical size={27} />} align="end">
             <NavDropdown.Item
               onClick={() => {

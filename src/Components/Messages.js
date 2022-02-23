@@ -2,11 +2,11 @@ import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import SendMessagesForm from "./SendMessagesForm";
 import * as Icon from "react-bootstrap-icons";
-import { Button, Image } from "react-bootstrap";
+import { Button, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { UserContext } from "../Context/Context";
 import "./Messages.css";
 
-function Messages({ selectedRoom }) {
+function Messages({ rooms, selectedRoom, fetchRooms }) {
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   // const socket = io("http://localhost:4000");
@@ -35,7 +35,6 @@ function Messages({ selectedRoom }) {
         });
     }
   }, [selectedRoom]);
-
   return selectedRoom === null ? (
     <div className="SelectRoomMessage d-flex justify-content-center h-75">
       <h1 className="d-flex flex-column justify-content-center opacity-50">
@@ -47,28 +46,33 @@ function Messages({ selectedRoom }) {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={
-            user.username === message.sentby
-              ? "d-flex flex-row-reverse pt-3 pb-3"
-              : "d-flex justify-content-start pt-3 pb-3"
-          }
+          className={`pt-3 pb-3 ${
+            user.id === message.sentbyid
+              ? "d-flex flex-row-reverse"
+              : "d-flex justify-content-start"
+          }`}
         >
           <div className="MessageImage">
-            {message.useravatar != null ? (
-              <Image
-                className="w-50"
-                roundedCircle={true}
-                src="https://pbs.twimg.com/media/Ee_5_WCUYAAp9i0.jpg"
-                alt="user avatar"
-              />
-            ) : (
-              <Icon.PersonCircle size={40} />
-            )}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>{message.username}</Tooltip>}
+            >
+              {message.useravatar != null ? (
+                <Image
+                  className="w-75"
+                  roundedCircle={true}
+                  src={`http://localhost:4000/${message.useravatar}`}
+                  alt="user avatar"
+                />
+              ) : (
+                <Icon.PersonCircle size={40} />
+              )}
+            </OverlayTrigger>
           </div>
           <div>
             <Button
               variant={
-                user.username === message.sentby
+                user.id === message.sentbyid
                   ? "primary mw-25"
                   : "secondary mw-25"
               }
@@ -83,6 +87,8 @@ function Messages({ selectedRoom }) {
         selectedRoom={selectedRoom}
         messages={messages}
         setMessages={setMessages}
+        rooms={rooms}
+        fetchRooms={fetchRooms}
       />
     </div>
   );

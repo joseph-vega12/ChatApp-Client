@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { decodeToken } from "react-jwt";
+import { UserContext } from "../Context/Context";
 import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
 import HeroImage from "../assets/messaging-with-smartphone.jpg";
 
 function Register() {
   let navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [input, setInput] = useState({
     email: "",
     username: "",
@@ -30,6 +33,7 @@ function Register() {
         })
         .then((response) => {
           localStorage.setItem("token", response.data.token);
+          setUser(decodeToken(response.data.token));
           navigate("/");
         })
         .catch((error) => {
@@ -109,7 +113,7 @@ function Register() {
               variant="primary"
               type="submit"
             >
-              Creat account
+              Create account
             </Button>
             <p className="text-center mt-4">
               Already have an account? <Link to="/login">Log in</Link>

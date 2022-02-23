@@ -2,16 +2,48 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Context/Context";
 import { Form, Button, InputGroup } from "react-bootstrap";
+import "./SendMessageForm.css";
 
-function SendMessagesForm({ selectedRoom, messages, setMessages }) {
-  const { user } = useContext(UserContext);
+function SendMessagesForm({
+  selectedRoom,
+  messages,
+  setMessages,
+  rooms,
+  fetchRooms,
+}) {
+  const { user, avatar } = useContext(UserContext);
   const [messageInput, setMessageInput] = useState({
     message: "",
   });
   const [validated, setValidated] = useState(false);
-
   const onChange = (e) => {
     setMessageInput({ ...messageInput, [e.target.name]: e.target.value });
+  };
+  const updateLatestMessage = () => {
+    axios
+      .put(
+        "http://localhost:4000/chat/latest-message",
+        {
+          roomid: selectedRoom,
+          message: messageInput.message,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        rooms.map((room) => {
+          return room.id === selectedRoom
+            ? Object.assign(room, response.data)
+            : null;
+        });
+        fetchRooms();
+      })
+      .catch((error) => {
+        throw error;
+      });
   };
 
   const onSubmit = (e) => {
@@ -22,8 +54,8 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
         .post(
           "http://localhost:4000/chat/messages",
           {
-            roomId: selectedRoom,
-            sentBy: user.username,
+            roomid: selectedRoom,
+            sentbyid: user.id,
             message: messageInput.message,
           },
           {
@@ -33,8 +65,18 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
           }
         )
         .then((response) => {
-          setMessages([...messages, response.data]);
+          setMessages([
+            ...messages,
+            {
+              id: response.data.id,
+              useravatar: avatar,
+              username: user.username,
+              message: response.data.message,
+              sentbyid: response.data.sentbyid,
+            },
+          ]);
           setMessageInput({ ...messageInput, message: "" });
+          updateLatestMessage();
         })
         .catch((error) => {
           throw error;
@@ -44,7 +86,7 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
   };
 
   return (
-    <div className="navbar fixed-bottom d-flex justify-content-end pb-1">
+    <div className="navbar fixed-bottom d-flex justify-content-end pb-0">
       <Form.Group className="w-75">
         <Form
           noValidate
@@ -53,7 +95,7 @@ function SendMessagesForm({ selectedRoom, messages, setMessages }) {
             onSubmit(e);
           }}
         >
-          <InputGroup size="lg" className="">
+          <InputGroup size="lg" className="MessageInput w-100">
             <Form.Control
               type="text"
               required

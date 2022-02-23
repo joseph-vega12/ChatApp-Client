@@ -1,4 +1,5 @@
 .RoomsColumn {
+  color: #ffffff;
   overflow: scroll;
   height: 100vh;
 }

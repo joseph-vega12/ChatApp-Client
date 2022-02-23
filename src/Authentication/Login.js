@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { decodeToken } from "react-jwt";
+import { UserContext } from "../Context/Context";
 import {
   Container,
   Row,
@@ -14,6 +16,7 @@ import AuthNav from "../Common/AuthNav";
 import HeroImage from "../assets/messaging-with-smartphone.jpg";
 
 function Login() {
+  const { setUser } = useContext(UserContext);
   const [input, setInput] = useState({ username: "", password: "" });
   const [validated, setValidated] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -39,7 +42,8 @@ function Login() {
           password: e.target.password.value,
         })
         .then((response) => {
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("token", response.data.token); // jwt is not going to have avatar
+          setUser(decodeToken(response.data.token));
           navigate("/");
         })
         .catch((error) => {

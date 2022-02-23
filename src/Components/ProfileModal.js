@@ -1,48 +1,38 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../Context/Context";
 import axios from "axios";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
 function CreateRoomModal(props) {
-  const { user } = useContext(UserContext);
+  const { user, setAvatar } = useContext(UserContext);
   const [previewImage, setPreviewImage] = useState(null);
-  const [formInput, setFormInput] = useState({ username: "", email: "" });
   const [file, setFile] = useState("");
   const [validated, setValidated] = useState(false);
-  useEffect(() => {
-    setFormInput({
-      username: user.username,
-      email: user.email,
-    });
-  }, [user]);
 
   const onChange = (e) => {
-    setFormInput({ ...formInput, [e.target.name]: e.target.value });
     setFile(e.target.files[0]);
   };
 
   const changePicture = (e) => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     const validatedInput = e.currentTarget;
 
-    formData.append("email", formInput.email);
-    formData.append("username", formInput.username);
     formData.append("userAvatar", file);
     if (validatedInput.checkValidity() === true) {
       axios
-        .put("http://localhost:4000/users/16", formData, {
+        .put(`http://localhost:4000/users/${user.id}`, formData, {
           headers: {
             token: localStorage.getItem("token"),
             "content-type": "multipart/form-data",
           },
         })
         .then((response) => {
+          setAvatar(response.data.useravatar);
           props.onHide();
         })
         .catch((error) => {
@@ -61,7 +51,7 @@ function CreateRoomModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Update Profile</Modal.Title>
+        <Modal.Title>Update Profile Picture</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
@@ -100,38 +90,6 @@ function CreateRoomModal(props) {
               File required.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              required
-              name="username"
-              placeholder="Enter Username"
-              value={formInput.username}
-              onChange={(e) => {
-                onChange(e);
-              }}
-            />
-            <Form.Control.Feedback type="invalid">
-              Username required.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              required
-              name="email"
-              placeholder="john@appleseed.com"
-              value={formInput.email}
-              onChange={(e) => {
-                onChange(e);
-              }}
-            />
-            <Form.Control.Feedback type="invalid">
-              Email required.
-            </Form.Control.Feedback>
-          </Form.Group>
           <Button
             className="w-100 text-center mt-3"
             variant="primary"
@@ -142,7 +100,9 @@ function CreateRoomModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button">Close</Button>
+        <Button onClick={props.onHide} type="button">
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );
