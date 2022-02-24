@@ -5,19 +5,21 @@ import * as Icon from "react-bootstrap-icons";
 import { Button, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { UserContext } from "../Context/Context";
 import "./Messages.css";
+import io from "socket.io-client";
+const socket = io("http://localhost:4000");
 
 function Messages({ rooms, selectedRoom, fetchRooms }) {
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
-  // const socket = io("http://localhost:4000");
-  // socket.on("send-message", ({ name, message }) => {
-  //   setChat([...chat, { name, message }])
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
+    socket.on("receive-message", (data) => {
+      setMessages(data);
+    });
     scrollToBottom();
   }, [messages]);
 

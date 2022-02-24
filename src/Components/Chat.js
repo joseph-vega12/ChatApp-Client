@@ -3,7 +3,6 @@ import axios from "axios";
 import Nav from "../Common/NavigationBar";
 import Rooms from "./Rooms";
 import Messages from "../Components/Messages";
-import io from "socket.io-client";
 import { Container, Row, Col } from "react-bootstrap";
 
 function Chat() {

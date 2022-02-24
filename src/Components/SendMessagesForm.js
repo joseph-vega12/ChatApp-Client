@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserContext } from "../Context/Context";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import "./SendMessageForm.css";
+import io from "socket.io-client";
+const socket = io("http://localhost:4000");
 
 function SendMessagesForm({
   selectedRoom,
@@ -65,7 +67,7 @@ function SendMessagesForm({
           }
         )
         .then((response) => {
-          setMessages([
+          const newMessage = [
             ...messages,
             {
               id: response.data.id,
@@ -74,7 +76,9 @@ function SendMessagesForm({
               message: response.data.message,
               sentbyid: response.data.sentbyid,
             },
-          ]);
+          ];
+          socket.emit("send-message", newMessage);
+          setMessages(newMessage);
           setMessageInput({ ...messageInput, message: "" });
           updateLatestMessage();
         })
