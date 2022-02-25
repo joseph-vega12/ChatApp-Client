@@ -3,12 +3,12 @@ import axios from "axios";
 import SendMessagesForm from "./SendMessagesForm";
 import * as Icon from "react-bootstrap-icons";
 import { Button, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { SocketContext } from "../Context/Socket";
 import { UserContext } from "../Context/Context";
 import "./Messages.css";
-import io from "socket.io-client";
-const socket = io("http://localhost:4000");
 
 function Messages({ rooms, selectedRoom, fetchRooms }) {
+  const { socket } = useContext(SocketContext);
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
@@ -19,6 +19,9 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
   useEffect(() => {
     socket.on("receive-message", (data) => {
       setMessages(data);
+    });
+    socket.on("recieve-fetch-rooms", () => {
+      fetchRooms();
     });
     scrollToBottom();
   }, [messages]);

@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../Context/Socket";
 import CreateRoomModal from "./CreateRoomModal";
 import { Col, InputGroup, Button, FormControl, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./Rooms.css";
-function Rooms({ rooms, setroom, selectRoom }) {
+
+function Rooms({ rooms, setRooms, selectRoom }) {
+  const { socket } = useContext(SocketContext);
+  useEffect(() => {
+    socket.on("recieve-room", (data) => {
+      setRooms(data);
+    });
+  }, [rooms]);
   const [modalShow, setModalShow] = useState(false);
   const setButtonRoomActive = (roomId) => {
     rooms.map((room) => {
@@ -60,7 +68,6 @@ function Rooms({ rooms, setroom, selectRoom }) {
       <CreateRoomModal
         show={modalShow}
         rooms={rooms}
-        setroom={setroom}
         onHide={() => setModalShow(false)}
       />
     </Col>

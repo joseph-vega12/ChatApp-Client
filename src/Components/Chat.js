@@ -40,7 +40,7 @@ function Chat() {
   return (
     <Container fluid>
       <Row>
-        <Rooms rooms={rooms} setroom={setRooms} selectRoom={selectRoom} />
+        <Rooms rooms={rooms} setRooms={setRooms} selectRoom={selectRoom} />
         <Col className="p-0">
           <Nav roomInfo={roomInfo} />
           <Messages

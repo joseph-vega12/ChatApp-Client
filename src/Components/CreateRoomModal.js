@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { SocketContext } from "../Context/Socket";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
 function CreateRoomModal(props) {
+  const { socket } = useContext(SocketContext);
   const [previewImage, setPreviewImage] = useState(null);
   const [formInput, setFormInput] = useState({ roomName: "" });
   const [file, setFile] = useState("");
@@ -34,7 +36,7 @@ function CreateRoomModal(props) {
           },
         })
         .then((response) => {
-          props.setroom([...props.rooms, response.data]);
+          socket.emit("create-room", [...props.rooms, response.data]);
           props.onHide();
         })
         .catch((error) => {

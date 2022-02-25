@@ -1,10 +1,9 @@
 import { useState, useContext } from "react";
 import axios from "axios";
+import { SocketContext } from "../Context/Socket";
 import { UserContext } from "../Context/Context";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import "./SendMessageForm.css";
-import io from "socket.io-client";
-const socket = io("http://localhost:4000");
 
 function SendMessagesForm({
   selectedRoom,
@@ -13,6 +12,7 @@ function SendMessagesForm({
   rooms,
   fetchRooms,
 }) {
+  const { socket } = useContext(SocketContext);
   const { user, avatar } = useContext(UserContext);
   const [messageInput, setMessageInput] = useState({
     message: "",
@@ -41,7 +41,7 @@ function SendMessagesForm({
             ? Object.assign(room, response.data)
             : null;
         });
-        fetchRooms();
+        socket.emit("fetch-rooms", fetchRooms());
       })
       .catch((error) => {
         throw error;
