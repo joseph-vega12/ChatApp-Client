@@ -16,7 +16,7 @@ export const Context = (props) => {
           headers: { token: localStorage.getItem("token") },
         })
         .then((response) => {
-          setAvatar(response.data.useravatar);
+          setAvatar(response.data.userAvatar);
         })
         .catch((error) => {
           throw error;

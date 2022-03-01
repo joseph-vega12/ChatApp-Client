@@ -32,7 +32,7 @@ function CreateRoomModal(props) {
           },
         })
         .then((response) => {
-          setAvatar(response.data.useravatar);
+          setAvatar(response.data.userAvatar);
           props.onHide();
         })
         .catch((error) => {

@@ -52,7 +52,7 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
         <div
           key={message.id}
           className={`pt-3 pb-3 ${
-            user.id === message.sentbyid
+            user.id === message.sentById
               ? "d-flex flex-row-reverse"
               : "d-flex justify-content-start"
           }`}
@@ -62,11 +62,11 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
               placement="top"
               overlay={<Tooltip>{message.username}</Tooltip>}
             >
-              {message.useravatar != null ? (
+              {message.userAvatar != null ? (
                 <Image
                   className="w-75"
                   roundedCircle={true}
-                  src={`http://localhost:4000/${message.useravatar}`}
+                  src={`http://localhost:4000/${message.userAvatar}`}
                   alt="user avatar"
                 />
               ) : (
@@ -77,7 +77,7 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
           <div>
             <Button
               variant={
-                user.id === message.sentbyid
+                user.id === message.sentById
                   ? "primary mw-25"
                   : "secondary mw-25"
               }

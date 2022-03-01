@@ -55,13 +55,13 @@ function Rooms({ rooms, setRooms, selectRoom }) {
             <Image
               className="w-75"
               roundedCircle={true}
-              src={`http://localhost:4000/${room.roomimage}`}
+              src={`http://localhost:4000/${room.roomImage}`}
               alt="roomPicture"
             />
           </div>
           <div className="RoomBody p-1 ps-3 text-start">
-            <h4>{room.roomname}</h4>
-            <p>{room.latestmessage}</p>
+            <h4>{room.roomName}</h4>
+            <p>{room.latestMessage}</p>
           </div>
         </Button>
       ))}

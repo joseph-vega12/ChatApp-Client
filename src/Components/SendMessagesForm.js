@@ -26,7 +26,7 @@ function SendMessagesForm({
       .put(
         "http://localhost:4000/chat/latest-message",
         {
-          roomid: selectedRoom,
+          roomId: selectedRoom,
           message: messageInput.message,
         },
         {
@@ -56,8 +56,8 @@ function SendMessagesForm({
         .post(
           "http://localhost:4000/chat/messages",
           {
-            roomid: selectedRoom,
-            sentbyid: user.id,
+            roomId: selectedRoom,
+            sentById: user.id,
             message: messageInput.message,
           },
           {
@@ -71,10 +71,10 @@ function SendMessagesForm({
             ...messages,
             {
               id: response.data.id,
-              useravatar: avatar,
+              userAvatar: avatar,
               username: user.username,
               message: response.data.message,
-              sentbyid: response.data.sentbyid,
+              sentById: response.data.sentById,
             },
           ];
           socket.emit("send-message", newMessage);

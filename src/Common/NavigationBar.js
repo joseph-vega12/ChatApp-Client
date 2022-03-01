@@ -21,10 +21,10 @@ function NavigationBar({ roomInfo }) {
         <Image
           className="w-25 me-2"
           roundedCircle={true}
-          src={`http://localhost:4000/${roomInfo.roomimage}`}
+          src={`http://localhost:4000/${roomInfo.roomImage}`}
           alt="roomInfo"
         />
-        {roomInfo.roomname}
+        {roomInfo.roomName}
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
