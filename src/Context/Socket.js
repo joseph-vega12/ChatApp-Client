@@ -4,7 +4,7 @@ import io from "socket.io-client";
 export const SocketContext = createContext();
 
 export const Socket = (props) => {
-  const socket = io("http://localhost:4000");
+  const socket = io(process.env.BACKEND_URL);
 
   return (
     <SocketContext.Provider value={{ socket }}>

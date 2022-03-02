@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import { SocketContext } from "../Context/Socket";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
@@ -28,8 +28,8 @@ function CreateRoomModal(props) {
     formData.append("roomName", e.target.roomName.value);
     formData.append("avatar", file);
     if (validatedInput.checkValidity() === true) {
-      axios
-        .post("http://localhost:4000/chat/rooms", formData, {
+      axiosInstance
+        .post("/chat/rooms", formData, {
           headers: {
             token: localStorage.getItem("token"),
             "content-type": "multipart/form-data",

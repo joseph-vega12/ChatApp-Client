@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import { SocketContext } from "../Context/Socket";
 import { UserContext } from "../Context/Context";
 import { Form, Button, InputGroup } from "react-bootstrap";
@@ -22,9 +22,9 @@ function SendMessagesForm({
     setMessageInput({ ...messageInput, [e.target.name]: e.target.value });
   };
   const updateLatestMessage = () => {
-    axios
+    axiosInstance
       .put(
-        "http://localhost:4000/chat/latest-message",
+        "/chat/latest-message",
         {
           roomId: selectedRoom,
           message: messageInput.message,
@@ -52,9 +52,9 @@ function SendMessagesForm({
     e.preventDefault();
     const sendMessageForm = e.currentTarget;
     if (sendMessageForm.checkValidity() === true) {
-      axios
+      axiosInstance
         .post(
-          "http://localhost:4000/chat/messages",
+          "/chat/messages",
           {
             roomId: selectedRoom,
             sentById: user.id,

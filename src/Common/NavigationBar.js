@@ -21,7 +21,7 @@ function NavigationBar({ roomInfo }) {
         <Image
           className="w-25 me-2"
           roundedCircle={true}
-          src={`http://localhost:4000/${roomInfo.roomImage}`}
+          src={process.env.BACKEND_URL + roomInfo.roomImage}
           alt="roomInfo"
         />
         {roomInfo.roomName}

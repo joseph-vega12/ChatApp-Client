@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import SendMessagesForm from "./SendMessagesForm";
 import * as Icon from "react-bootstrap-icons";
 import { Button, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -28,8 +28,8 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
 
   useEffect(() => {
     if (selectedRoom != null) {
-      axios
-        .get(`http://localhost:4000/chat/messages/${selectedRoom}`, {
+      axiosInstance
+        .get(`/chat/messages/${selectedRoom}`, {
           headers: { token: localStorage.getItem("token") },
         })
         .then((response) => {
@@ -66,7 +66,7 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
                 <Image
                   className="w-75"
                   roundedCircle={true}
-                  src={`http://localhost:4000/${message.userAvatar}`}
+                  src={process.env.BACKEND_URL + message.userAvatar}
                   alt="user avatar"
                 />
               ) : (

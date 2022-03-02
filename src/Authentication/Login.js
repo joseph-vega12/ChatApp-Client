@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import { UserContext } from "../Context/Context";
@@ -36,8 +36,8 @@ function Login() {
     e.preventDefault();
     const loginForm = e.currentTarget;
     if (loginForm.checkValidity() === true) {
-      axios
-        .post("http://localhost:4000/auth/login", {
+      axiosInstance
+        .post("/auth/login", {
           username: e.target.username.value,
           password: e.target.password.value,
         })

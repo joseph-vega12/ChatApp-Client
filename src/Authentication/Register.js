@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import { UserContext } from "../Context/Context";
@@ -25,8 +25,8 @@ function Register() {
     e.preventDefault();
     const registerForm = e.currentTarget;
     if (registerForm.checkValidity() === true) {
-      axios
-        .post("http://localhost:4000/auth/register", {
+      axiosInstance
+        .post("/auth/register", {
           email: e.target.email.value,
           username: e.target.username.value,
           password: e.target.password.value,

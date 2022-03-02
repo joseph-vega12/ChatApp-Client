@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../Context/Context";
-import axios from "axios";
+import axiosInstance from "../axios";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
@@ -24,8 +24,8 @@ function CreateRoomModal(props) {
 
     formData.append("userAvatar", file);
     if (validatedInput.checkValidity() === true) {
-      axios
-        .put(`http://localhost:4000/users/${user.id}`, formData, {
+      axiosInstance
+        .put(`/users/${user.id}`, formData, {
           headers: {
             token: localStorage.getItem("token"),
             "content-type": "multipart/form-data",

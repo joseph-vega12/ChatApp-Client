@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../axios";
 import Nav from "../Common/NavigationBar";
 import Rooms from "./Rooms";
 import Messages from "../Components/Messages";
@@ -14,8 +14,8 @@ function Chat() {
   }, []);
 
   const fetchRooms = () => {
-    axios
-      .get("http://localhost:4000/chat/rooms", {
+    axiosInstance
+      .get("/chat/rooms", {
         headers: {
           token: localStorage.getItem("token"),
         },
