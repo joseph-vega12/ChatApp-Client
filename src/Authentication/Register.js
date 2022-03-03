@@ -5,7 +5,6 @@ import { decodeToken } from "react-jwt";
 import { UserContext } from "../Context/Context";
 import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
-import HeroImage from "../assets/messaging-with-smartphone.jpg";
 
 function Register() {
   let navigate = useNavigate();
@@ -45,11 +44,10 @@ function Register() {
 
   return (
     <Container fluid>
+      <AuthNav />
       <Row>
         <Col className="d-flex flex-column justify-content-center" lg={6}>
-          <AuthNav />
-
-          <Col className="ms-auto me-auto mb-4" lg={9}>
+          <Col className="ms-auto me-auto mb-4" xs={9} sm={9} lg={9}>
             <h1>Sign up.</h1>
             <p>
               Sign up today to and get free access to popular rooms around the
@@ -120,9 +118,7 @@ function Register() {
             </p>
           </Form>
         </Col>
-        <Col className="p-0" lg={6}>
-          <Image className="w-100 vh-100" src={HeroImage} alt="heroImage" />
-        </Col>
+        <Col className="HeroImage" lg={6}></Col>
       </Row>
     </Container>
   );
