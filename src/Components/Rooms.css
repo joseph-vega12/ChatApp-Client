@@ -7,7 +7,6 @@
 .RoomsColumn::-webkit-scrollbar {
   display: none;
 }
-
 .Active {
   background-color: red;
 }

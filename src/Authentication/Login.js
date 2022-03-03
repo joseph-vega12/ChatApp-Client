@@ -3,17 +3,8 @@ import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import { UserContext } from "../Context/Context";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Image,
-  Alert,
-} from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
-import HeroImage from "../assets/messaging-with-smartphone.jpg";
 
 function Login() {
   const { setUser } = useContext(UserContext);
@@ -57,10 +48,10 @@ function Login() {
 
   return (
     <Container fluid>
+      <AuthNav />
       <Row>
         <Col className="d-flex flex-column justify-content-center" lg={6}>
-          <AuthNav />
-          <Col className="ms-auto me-auto mb-4" lg={9}>
+          <Col className="ms-auto me-auto mb-4" xs={10} sm={9} lg={9}>
             <h1>Log in.</h1>
             <p>
               Log In to begin chating about trending topics across the globe!
@@ -118,9 +109,7 @@ function Login() {
             </p>
           </Form>
         </Col>
-        <Col className="p-0" lg={6}>
-          <Image className="w-100 vh-100" src={HeroImage} alt="heroImage" />
-        </Col>
+        <Col className="HeroImage" lg={6}></Col>
       </Row>
     </Container>
   );
