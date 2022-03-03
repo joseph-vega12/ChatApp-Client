@@ -66,9 +66,7 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
                 <Image
                   className="w-75"
                   roundedCircle={true}
-                  src={
-                    process.env.REACT_APP_BACKEND_URL + "/" + message.userAvatar
-                  }
+                  src={message.userAvatar}
                   alt="user avatar"
                 />
               ) : (

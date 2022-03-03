@@ -55,7 +55,7 @@ function Rooms({ rooms, setRooms, selectRoom }) {
             <Image
               className="w-75"
               roundedCircle={true}
-              src={`http://localhost:4000/${room.roomImage}`}
+              src={room.roomImage}
               alt="roomPicture"
             />
           </div>
