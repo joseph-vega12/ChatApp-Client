@@ -64,7 +64,7 @@ function Messages({ rooms, selectedRoom, fetchRooms }) {
             >
               {message.userAvatar != null ? (
                 <Image
-                  className="w-75"
+                  className="w-75 h-100"
                   roundedCircle={true}
                   src={message.userAvatar}
                   alt="user avatar"
