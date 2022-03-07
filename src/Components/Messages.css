@@ -12,11 +12,10 @@
   justify-content: space-evenly;
   width: auto;
   max-width: 60px;
-  height: auto;
 }
 
 @media only screen and (max-width: 992px) {
   .Messages {
-    height: 75vh;
+    height: 70vh;
   }
 }
