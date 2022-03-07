@@ -1,6 +1,6 @@
 .Messages {
   overflow: scroll;
-  height: 79vh;
+  height: 81vh;
 }
 
 .Messages::-webkit-scrollbar {
@@ -10,5 +10,11 @@
 .MessageImage {
   display: flex;
   justify-content: space-evenly;
-  width: 60px;
+  max-width: 60px;
+}
+
+@media only screen and (max-width: 992px) {
+  .Messages {
+    height: 83vh;
+  }
 }
