@@ -1,12 +1,11 @@
-.RoomsColumn {
-  color: #ffffff;
-  overflow: scroll;
-  height: 100vh;
+.offcanvas {
+  color: #ffff;
 }
 
 .RoomsColumn::-webkit-scrollbar {
   display: none;
 }
+
 .Active {
   background-color: red;
 }

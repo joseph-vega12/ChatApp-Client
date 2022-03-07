@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axiosInstance from "../axios";
 import { SocketContext } from "../Context/Socket";
 import { UserContext } from "../Context/Context";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import "./SendMessageForm.css";
 
 function SendMessagesForm({
@@ -90,31 +90,34 @@ function SendMessagesForm({
   };
 
   return (
-    <div className="navbar fixed-bottom d-flex justify-content-end pb-0">
-      <Form.Group className="w-75">
-        <Form
-          noValidate
-          validated={validated}
-          onSubmit={(e) => {
-            onSubmit(e);
-          }}
-        >
-          <InputGroup size="lg" className="MessageInput w-100">
-            <Form.Control
+    <div className="SendMessageInput">
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={(e) => {
+          onSubmit(e);
+        }}
+      >
+        <Form.Group>
+          <InputGroup>
+            <FormControl
               type="text"
               required
               name="message"
               placeholder="Message"
               label="message"
+              size="lg"
               value={messageInput.message}
               onChange={(e) => {
                 onChange(e);
               }}
             />
-            <Button variant="secondary">Send</Button>
+            <Button type="submit" variant="secondary">
+              Send
+            </Button>
           </InputGroup>
-        </Form>
-      </Form.Group>
+        </Form.Group>
+      </Form>
     </div>
   );
 }
