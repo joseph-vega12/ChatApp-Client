@@ -21,7 +21,12 @@ function NavigationBar({ roomInfo, setShow, show }) {
   };
 
   return (
-    <Navbar className="p-4" collapseOnSelect bg="light" variant="light">
+    <Navbar
+      className="p-4 sticky-top"
+      collapseOnSelect
+      bg="light"
+      variant="light"
+    >
       <Button
         className={classValue}
         onClick={() => {

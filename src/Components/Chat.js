@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../axios";
-import Nav from "../Common/NavigationBar";
 import Rooms from "./Rooms";
 import Messages from "../Components/Messages";
 import WindowWidth from "../helpers/WindowWidth";
@@ -11,7 +10,6 @@ function Chat() {
   const [roomInfo, setRoomInfo] = useState("");
   const [selectedRoom, setSelectedRoom] = useState(null);
   const { width } = WindowWidth();
-  const [roomsToggle, setRoomsToggle] = useState(true);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -53,21 +51,16 @@ function Chat() {
           <Rooms
             setShow={setShow}
             show={show}
-            roomsToggle={roomsToggle}
             rooms={rooms}
             setRooms={setRooms}
             selectRoom={selectRoom}
           />
         </Col>
         <Col className="p-0" lg={9}>
-          <Nav
+          <Messages
             setShow={setShow}
             show={show}
-            roomsToggle={roomsToggle}
-            setRoomsToggle={setRoomsToggle}
             roomInfo={roomInfo}
-          />
-          <Messages
             rooms={rooms}
             selectedRoom={selectedRoom}
             fetchRooms={fetchRooms}
