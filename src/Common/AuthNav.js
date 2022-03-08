@@ -8,7 +8,7 @@ function AuthNav() {
       <Navbar className="w-50 mb-3 ps-3">
         <Navbar.Brand href="/">
           <Icon.ChatDots className="mb-1 me-3" size={35} />
-          ChatApp
+          Chatterley
         </Navbar.Brand>
       </Navbar>
     </div>
