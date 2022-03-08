@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import { UserContext } from "../Context/Context";
-import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
 
 function Register() {
@@ -15,6 +15,16 @@ function Register() {
     password: "",
   });
   const [validated, setValidated] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let timer = setTimeout(() => setShowErrorMessage(false), 4000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [showErrorMessage]);
 
   const onChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -36,7 +46,8 @@ function Register() {
           navigate("/");
         })
         .catch((error) => {
-          throw error;
+          setShowErrorMessage(!showErrorMessage);
+          setErrorMessage(error.response.data.message);
         });
     }
     setValidated(true);
@@ -106,6 +117,9 @@ function Register() {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3"></Form.Group>
+            <Alert variant="danger" show={showErrorMessage}>
+              {errorMessage}
+            </Alert>
             <Button
               className="w-100 text-center"
               variant="primary"

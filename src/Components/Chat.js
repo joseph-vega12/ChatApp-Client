@@ -52,7 +52,7 @@ function Chat() {
   return (
     <>
       {isLoading === true ? (
-        <div fluid className="d-flex justify-content-center vh-100">
+        <div className="d-flex justify-content-center vh-100">
           <Spinner enabled={isLoading} />
         </div>
       ) : (

@@ -10,14 +10,16 @@ function Login() {
   const { setUser } = useContext(UserContext);
   const [input, setInput] = useState({ username: "", password: "" });
   const [validated, setValidated] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      setErrorMessage(false);
-    }, 4000);
-  }, [errorMessage]);
+    let timer = setTimeout(() => setShowErrorMessage(false), 4000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [showErrorMessage]);
 
   const onChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -39,7 +41,7 @@ function Login() {
         })
         .catch((error) => {
           if (error.response.status === 401 || 404) {
-            setErrorMessage(!errorMessage);
+            setShowErrorMessage(!showErrorMessage);
           }
         });
     }
@@ -94,7 +96,7 @@ function Login() {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3"></Form.Group>
-            <Alert variant="danger" show={errorMessage}>
+            <Alert variant="danger" show={showErrorMessage}>
               Incorrect username or password.
             </Alert>
             <Button
