@@ -100,15 +100,15 @@ function Messages({
             </div>
           ))}
           <div ref={messagesEndRef} />
-          <SendMessagesForm
-            selectedRoom={selectedRoom}
-            messages={messages}
-            setMessages={setMessages}
-            rooms={rooms}
-            fetchRooms={fetchRooms}
-          />
         </>
       )}
+      <SendMessagesForm
+        selectedRoom={selectedRoom}
+        messages={messages}
+        setMessages={setMessages}
+        rooms={rooms}
+        fetchRooms={fetchRooms}
+      />
     </div>
   );
 }
