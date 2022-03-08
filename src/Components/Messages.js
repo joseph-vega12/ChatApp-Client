@@ -53,7 +53,7 @@ function Messages({
     <div>
       <div className="Messages">
         <NavigationBar setShow={setShow} show={show} roomInfo={roomInfo} />
-        {selectedRoom == null ? (
+        {selectedRoom === null ? (
           <div className="Messages d-flex flex-column justify-content-center">
             <h1 className="d-flex justify-content-center opacity-50">
               Select A Room
@@ -77,7 +77,7 @@ function Messages({
                   >
                     {message.userAvatar != null ? (
                       <Image
-                        className="w-75 h-100"
+                        className="w-75 h-75"
                         roundedCircle={true}
                         src={message.userAvatar}
                         alt="user avatar"

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../axios";
 import Rooms from "./Rooms";
 import Messages from "../Components/Messages";
+import Spinner from "../helpers/Spinner";
 import WindowWidth from "../helpers/WindowWidth";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -9,8 +10,9 @@ function Chat() {
   const [rooms, setRooms] = useState([]);
   const [roomInfo, setRoomInfo] = useState("");
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const { width } = WindowWidth();
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { width } = WindowWidth();
 
   useEffect(() => {
     fetchRooms();
@@ -32,6 +34,9 @@ function Chat() {
       })
       .catch((error) => {
         throw error;
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
   const selectRoom = (roomId) => {
@@ -45,30 +50,37 @@ function Chat() {
   };
 
   return (
-    <Container fluid>
-      <Row>
-        <Col>
-          <Rooms
-            setShow={setShow}
-            show={show}
-            rooms={rooms}
-            setRooms={setRooms}
-            selectRoom={selectRoom}
-          />
-        </Col>
-        <Col className="p-0" lg={9}>
-          <Messages
-            setShow={setShow}
-            show={show}
-            roomInfo={roomInfo}
-            rooms={rooms}
-            selectedRoom={selectedRoom}
-            fetchRooms={fetchRooms}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      {isLoading === true ? (
+        <div fluid className="d-flex justify-content-center vh-100">
+          <Spinner enabled={isLoading} />
+        </div>
+      ) : (
+        <Container fluid>
+          <Row>
+            <Col>
+              <Rooms
+                setShow={setShow}
+                show={show}
+                rooms={rooms}
+                setRooms={setRooms}
+                selectRoom={selectRoom}
+              />
+            </Col>
+            <Col className="p-0" lg={9}>
+              <Messages
+                setShow={setShow}
+                show={show}
+                roomInfo={roomInfo}
+                rooms={rooms}
+                selectedRoom={selectedRoom}
+                fetchRooms={fetchRooms}
+              />
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </>
   );
 }
-
 export default Chat;
