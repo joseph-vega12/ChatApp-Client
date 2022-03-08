@@ -32,7 +32,7 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
   };
   return (
     <Offcanvas
-      className={`bg-dark ${width >= 992 ? "w-25" : "w-100"}`}
+      className={`bg-dark ${width >= 992 ? "w-25" : "w-75"}`}
       scroll={true}
       show={show}
       backdrop={false}
