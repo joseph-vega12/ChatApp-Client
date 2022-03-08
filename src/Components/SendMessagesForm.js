@@ -3,7 +3,6 @@ import axiosInstance from "../axios";
 import { SocketContext } from "../Context/Socket";
 import { UserContext } from "../Context/Context";
 import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
-import "./SendMessageForm.css";
 
 function SendMessagesForm({
   selectedRoom,
@@ -90,7 +89,7 @@ function SendMessagesForm({
   };
 
   return (
-    <div className="SendMessageInput">
+    <div>
       <Form
         noValidate
         validated={validated}
@@ -99,7 +98,7 @@ function SendMessagesForm({
         }}
       >
         <Form.Group>
-          <InputGroup>
+          <InputGroup className="">
             <FormControl
               type="text"
               required
