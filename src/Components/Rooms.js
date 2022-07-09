@@ -23,6 +23,7 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
   }, [rooms]);
 
   const [modalShow, setModalShow] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   const { width } = WindowWidth();
 
   const setButtonRoomActive = (roomId) => {
@@ -30,6 +31,11 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
       return roomId === room.id ? (room.active = true) : (room.active = false);
     });
   };
+
+  const filterRooms = rooms.filter((room) =>
+    room.roomName.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
     <Offcanvas
       className={`bg-dark ${width >= 992 ? "w-25" : "w-75"}`}
@@ -67,10 +73,18 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
             <Button variant="outline-secondary">
               <Icon.Search />
             </Button>
-            <FormControl />
+            <FormControl
+              type="text"
+              name="search"
+              placeholder="Search"
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
+            />
           </InputGroup>
         </Col>
-        {rooms.map((room) => (
+        {filterRooms.map((room) => (
           <Col key={room.id}>
             <Button
               className={`${
