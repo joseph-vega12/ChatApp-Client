@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, ChangeEvent } from "react";
 import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
@@ -6,9 +6,18 @@ import { UserContext } from "../Context/Context";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
 
-function Login() {
+interface LoginInput {
+  username: string;
+  password: string;
+}
+
+const Login: React.FC = () => {
   const { setUser } = useContext(UserContext);
-  const [input, setInput] = useState({ username: "", password: "" });
+  const [input, setInput] = useState<LoginInput>({
+    username: "",
+    password: "",
+  });
+
   const [validated, setValidated] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   let navigate = useNavigate();
@@ -21,18 +30,18 @@ function Login() {
     };
   }, [showErrorMessage]);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const loginForm = e.currentTarget;
+    const loginForm = e.target as HTMLInputElement;
     if (loginForm.checkValidity() === true) {
       axiosInstance
         .post("/auth/login", {
-          username: e.target.username.value,
-          password: e.target.password.value,
+          username: input.username,
+          password: input.password,
         })
         .then((response) => {
           localStorage.setItem("token", response.data.token); // jwt is not going to have avatar
@@ -72,8 +81,7 @@ function Login() {
                 required
                 name="username"
                 placeholder="Enter Username"
-                label="username"
-                onChange={(e) => onChange(e)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
                 value={input.username}
               />
               <Form.Control.Feedback type="invalid">
@@ -87,8 +95,7 @@ function Login() {
                 required
                 name="password"
                 placeholder="Enter Password"
-                label="password"
-                onChange={(e) => onChange(e)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
                 value={input.password}
               />
               <Form.Control.Feedback type="invalid">
@@ -115,5 +122,5 @@ function Login() {
       </Row>
     </Container>
   );
-}
+};
 export default Login;

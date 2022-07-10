@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "./Authentication/Register";
-import Login from "./Authentication/Login";
+import Login from "./Authentication/Login.tsx";
 import Chat from "./Components/Chat";
 import PrivateRoute from "./RestrictedRoute/PrivateRoute";
 import { Context } from "./Context/Context";
