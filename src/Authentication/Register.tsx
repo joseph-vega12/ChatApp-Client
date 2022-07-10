@@ -6,17 +6,23 @@ import { UserContext } from "../Context/Context";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AuthNav from "../Common/AuthNav";
 
-function Register() {
+interface RegisterInput {
+  email: string;
+  username: string;
+  password: string;
+}
+
+const Register: React.FC = () => {
   let navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<RegisterInput>({
     email: "",
     username: "",
     password: "",
   });
-  const [validated, setValidated] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [validated, setValidated] = useState<boolean>(false);
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     let timer = setTimeout(() => setShowErrorMessage(false), 4000);
@@ -26,19 +32,19 @@ function Register() {
     };
   }, [showErrorMessage]);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const registerForm = e.currentTarget;
+    const registerForm = e.currentTarget as HTMLInputElement;
     if (registerForm.checkValidity() === true) {
       axiosInstance
         .post("/auth/register", {
-          email: e.target.email.value,
-          username: e.target.username.value,
-          password: e.target.password.value,
+          email: input.email,
+          username: input.username,
+          password: input.password,
         })
         .then((response) => {
           localStorage.setItem("token", response.data.token);
@@ -78,8 +84,9 @@ function Register() {
                 required
                 name="username"
                 placeholder="Enter Username"
-                label="username"
-                onChange={(e) => onChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange(e)
+                }
                 value={input.username}
               />
               <Form.Control.Feedback type="invalid">
@@ -93,8 +100,9 @@ function Register() {
                 required
                 name="email"
                 placeholder="johnapple@appleseed.com"
-                label="email"
-                onChange={(e) => onChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange(e)
+                }
                 value={input.email}
               />
               <Form.Control.Feedback type="invalid">
@@ -108,8 +116,9 @@ function Register() {
                 required
                 name="password"
                 placeholder="Enter Password"
-                label="password"
-                onChange={(e) => onChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange(e)
+                }
                 value={input.password}
               />
               <Form.Control.Feedback type="invalid">
@@ -136,6 +145,6 @@ function Register() {
       </Row>
     </Container>
   );
-}
+};
 
 export default Register;

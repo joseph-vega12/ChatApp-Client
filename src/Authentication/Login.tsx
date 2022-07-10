@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, ChangeEvent } from "react";
+import { useEffect, useState, useContext } from "react";
 import axiosInstance from "../axios";
 import { useNavigate, Link } from "react-router-dom";
 import { decodeToken } from "react-jwt";
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
     };
   }, [showErrorMessage]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
@@ -81,7 +81,9 @@ const Login: React.FC = () => {
                 required
                 name="username"
                 placeholder="Enter Username"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange(e)
+                }
                 value={input.username}
               />
               <Form.Control.Feedback type="invalid">
@@ -95,7 +97,9 @@ const Login: React.FC = () => {
                 required
                 name="password"
                 placeholder="Enter Password"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange(e)
+                }
                 value={input.password}
               />
               <Form.Control.Feedback type="invalid">
