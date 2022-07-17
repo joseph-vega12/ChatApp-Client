@@ -15,13 +15,11 @@ import WindowWidth from "../helpers/WindowWidth";
 
 function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
   const { socket } = useContext(SocketContext);
-
   useEffect(() => {
     socket.on("recieve-room", (data) => {
       setRooms(data);
     });
   }, [rooms]);
-
   const [modalShow, setModalShow] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const { width } = WindowWidth();
@@ -89,7 +87,7 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
             <Button
               className={`${
                 show === true
-                  ? "d-flex justify-content-start p-4 mb-2"
+                  ? "d-flex justify-content-start p-4 mb-2 w-100"
                   : "d-none"
               }`}
               key={room.id}
