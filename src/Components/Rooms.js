@@ -8,6 +8,7 @@ import {
   FormControl,
   Image,
   Offcanvas,
+  CloseButton,
 } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./Rooms.css";
@@ -42,17 +43,15 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
       backdrop={false}
       lg={10}
     >
-      <Offcanvas.Header
-        className="pb-0"
-        onClick={() => {
-          setShow(false);
-        }}
-        closeButton={width <= 992 ? true : false}
-        closeVariant="white"
-      >
-        <Offcanvas.Title>
-          <h3>Rooms</h3>
-        </Offcanvas.Title>
+      <Offcanvas.Header className="pb-0">
+        <Offcanvas.Title>Rooms</Offcanvas.Title>
+        <CloseButton
+          className={width <= 992 ? "" : "d-none"}
+          variant="white"
+          onClick={() => {
+            setShow(false);
+          }}
+        />
       </Offcanvas.Header>
       <Offcanvas.Body className="RoomsColumn">
         <Col>
