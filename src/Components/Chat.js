@@ -5,6 +5,7 @@ import Messages from "../Components/Messages";
 import Spinner from "../helpers/Spinner";
 import WindowWidth from "../helpers/WindowWidth";
 import { Container, Row, Col } from "react-bootstrap";
+import TermsAndConditions from "../Common/TermsAndConditions";
 
 function Chat() {
   const [rooms, setRooms] = useState([]);
@@ -13,7 +14,6 @@ function Chat() {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { width } = WindowWidth();
-
   useEffect(() => {
     fetchRooms();
   }, []);
@@ -48,7 +48,6 @@ function Chat() {
       });
     setRoomInfo(roomName[0]);
   };
-
   return (
     <>
       {isLoading === true ? (
@@ -78,9 +77,11 @@ function Chat() {
               />
             </Col>
           </Row>
+          <TermsAndConditions />
         </Container>
       )}
     </>
   );
 }
+
 export default Chat;
