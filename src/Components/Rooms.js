@@ -44,7 +44,9 @@ function Rooms({ rooms, setRooms, selectRoom, show, setShow }) {
       lg={10}
     >
       <Offcanvas.Header className="pb-0">
-        <Offcanvas.Title>Rooms</Offcanvas.Title>
+        <Offcanvas.Title>
+          <h4>Rooms</h4>
+        </Offcanvas.Title>
         <CloseButton
           className={width <= 992 ? "" : "d-none"}
           variant="white"
